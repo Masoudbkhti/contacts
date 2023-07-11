@@ -1,16 +1,31 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const CONTACTS_LIST_API = "http://localhost:3000/contacts";
 import axios from "axios";
 export const EditContact = () => {
   const { id } = useParams();
-  const [name, setName] = useState([]);
-  const [number, setNumber] = useState([]);
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigateTo = useNavigate();
   const [error, setError] = useState("");
-
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        isLoading(true);
+        const response = await axios.get(`${CONTACTS_LIST_API}/${id}`);
+        isLoading(false);
+        const { name, number } = response.data;
+        setName(name);
+        setNumber(number);
+      } catch (e) {
+        isLoading(false);
+        console.log("Error:", e);
+      }
+    };
+    fetchData();
+  }, [id]);
   const editFormHandler = async (e) => {
     e.preventDefault();
     if (!/^09\d{9}$/.test(number)) {
