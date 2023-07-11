@@ -9,9 +9,17 @@ export const EditContact = () => {
   const [number, setNumber] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigateTo = useNavigate();
+  const [error, setError] = useState("");
 
   const editFormHandler = async (e) => {
     e.preventDefault();
+    if (!/^09\d{9}$/.test(number)) {
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+      setError("Phone number starts with 09 and must be 11 characters.");
+      return;
+    }
     const requestBody = { name, number };
     try {
       setIsLoading(true);
@@ -53,6 +61,7 @@ export const EditContact = () => {
       {isLoading ? (
         <div>Redirecting to Contact List. Please wait...</div>
       ) : null}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 };
