@@ -56,7 +56,7 @@ export const ContactList = () => {
               </div>
               <div className="change-btns">
                 <div>
-                  <Link to="edit-contact">
+                  <Link to={`edit-contact/${id}`}>
                     <button>Edit</button>
                   </Link>
                 </div>
