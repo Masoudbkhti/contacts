@@ -3,6 +3,8 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Home Page */
 .container {
   display: flex;
   flex-direction: column;
@@ -11,8 +13,19 @@
   gap: 100px;
   padding: 50px;
 }
+
+/* ContactList Component */
 .contact-list {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 50px;
+}
+
+.change-btns {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
 }

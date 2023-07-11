@@ -29,9 +29,13 @@ export const ContactList = () => {
               <h3>{name}</h3>
               <p>{number}</p>
             </div>
-            <div>
-              <button>Edit</button>
-              <button>Delete</button>
+            <div className="change-btns">
+              <div>
+                <button>Edit</button>
+              </div>
+              <div>
+                <button>Delete</button>
+              </div>
             </div>
           </div>
         );
