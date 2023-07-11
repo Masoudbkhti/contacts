@@ -1,17 +1,25 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
+
 const CONTACTS_LIST_API = "http://localhost:3000/contacts";
 import axios from "axios";
 export const EditContact = () => {
-  const id = useParams();
+  const { id } = useParams();
   const [name, setName] = useState([]);
   const [number, setNumber] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigateTo = useNavigate();
 
-  const editFormHandler = async () => {
+  const editFormHandler = async (e) => {
+    e.preventDefault();
+    const requestBody = { name, number };
     try {
-      await axios.put(CONTACTS_LIST_API, { name: name });
-      await axios.put(CONTACTS_LIST_API, { number: number });
+      setIsLoading(true);
+      await axios.put(`${CONTACTS_LIST_API}/${id}`, requestBody);
+      setIsLoading(false);
+      navigateTo("/");
     } catch (e) {
+      setIsLoading(false);
       console.log("Error:", e);
     }
   };
@@ -38,6 +46,9 @@ export const EditContact = () => {
         />
         <button type="submit">Edit</button>
       </form>
+      {isLoading ? (
+        <div>Redirecting to Contact List. Please wait...</div>
+      ) : null}
     </div>
   );
 };
