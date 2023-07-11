@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 const CONTACTS_LIST_API = "http://localhost:3000/contacts";
 
 export const ContactList = () => {
@@ -56,7 +56,9 @@ export const ContactList = () => {
               </div>
               <div className="change-btns">
                 <div>
-                  <button>Edit</button>
+                  <Link to="edit-contact">
+                    <button>Edit</button>
+                  </Link>
                 </div>
                 <div>
                   <button
