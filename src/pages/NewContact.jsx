@@ -24,8 +24,14 @@ export const NewContact = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={formSubmitHandler}>
+    <div className="container">
+      <div className="title">
+        <h1>Add new Contact</h1>
+        <Link to="/">
+          <button>Back to Home</button>
+        </Link>
+      </div>
+      <form onSubmit={formSubmitHandler} className="addform">
         <input
           type="text"
           placeholder="Enter your Name"
@@ -39,9 +45,6 @@ export const NewContact = () => {
           onChange={(e) => setNumber(e.target.value)}
         />
         <button type="submit">Add</button>
-        <Link to="/">
-          <button>Back to Home</button>
-        </Link>
       </form>
     </div>
   );
