@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 const CONTACTS_LIST_API = "http://localhost:3000/contacts";
 
 export const ContactList = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const [contactList, setContactList] = useState([]);
+  const [deleteStatus, setDeleteStatus] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,6 +15,7 @@ export const ContactList = () => {
         const response = await axios.get(CONTACTS_LIST_API);
         setContactList(response.data);
         setIsLoading(false);
+        setDeleteStatus(Array(response.data.length).fill(false));
       } catch (e) {
         setIsLoading(false);
         console.log("Error fetching data:", e);
@@ -23,15 +25,18 @@ export const ContactList = () => {
     fetchData();
   }, []);
 
-  const contactDeleteHandler = async (id) => {
+  const contactDeleteHandler = async (id, index) => {
     try {
-      setIsDeleting(true);
+      const updatedDeleteStatus = [...deleteStatus];
+      updatedDeleteStatus[index] = true;
+      setDeleteStatus(updatedDeleteStatus);
+
       await axios.delete(`${CONTACTS_LIST_API}/${id}`);
-      setIsDeleting(false);
+
       const response = await axios.get(CONTACTS_LIST_API);
       setContactList(response.data);
+      setDeleteStatus(Array(response.data.length).fill(false));
     } catch (e) {
-      setIsDeleting(false);
       console.log("Error:", e);
     }
   };
@@ -42,7 +47,7 @@ export const ContactList = () => {
       {contactList.length === 0 && !isLoading ? (
         <div>There is no Contacts in the list!</div>
       ) : (
-        contactList.map(({ id, name, number }) => {
+        contactList.map(({ id, name, number }, index) => {
           return (
             <div key={id} className="contact-list">
               <div>
@@ -54,8 +59,11 @@ export const ContactList = () => {
                   <button>Edit</button>
                 </div>
                 <div>
-                  <button onClick={() => contactDeleteHandler(id)}>
-                    {isDeleting ? <div>Deleting...</div> : <div>Delete</div>}
+                  <button
+                    onClick={() => contactDeleteHandler(id, index)}
+                    disabled={deleteStatus[index]}
+                  >
+                    {deleteStatus[index] ? "Deleting..." : "Delete"}
                   </button>
                 </div>
               </div>
