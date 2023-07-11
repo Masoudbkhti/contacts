@@ -44,7 +44,9 @@ export const EditContact = () => {
           value={number}
           onChange={(e) => setNumber(e.target.value)}
         />
-        <button type="submit">Edit</button>
+        <button className="btn" type="submit">
+          Edit
+        </button>
       </form>
       {isLoading ? (
         <div>Redirecting to Contact List. Please wait...</div>

@@ -28,7 +28,7 @@ export const NewContact = () => {
       <div className="title">
         <h1>Add new Contact</h1>
         <Link to="/">
-          <button>Back to Home</button>
+          <button className="btn">Back to Home</button>
         </Link>
       </div>
       <form onSubmit={formSubmitHandler} className="addform">
@@ -44,7 +44,9 @@ export const NewContact = () => {
           value={number}
           onChange={(e) => setNumber(e.target.value)}
         />
-        <button type="submit">Add</button>
+        <button className="btn" type="submit">
+          Add
+        </button>
       </form>
     </div>
   );

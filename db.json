@@ -1,33 +1,9 @@
 {
   "contacts": [
     {
-      "name": "Ali",
+      "name": "ali",
+      "number": "12345678",
       "id": 1
-    },
-    {
-      "name": "Hesam",
-      "number": "32145895",
-      "id": 2
-    },
-    {
-      "name": "Sina",
-      "number": "852369741",
-      "id": 3
-    },
-    {
-      "name": "Abbas",
-      "number": "85426",
-      "id": 4
-    },
-    {
-      "name": "Hesan",
-      "number": "234234234",
-      "id": 5
-    },
-    {
-      "name": "Gholam",
-      "number": "56313",
-      "id": 6
     }
   ]
 }

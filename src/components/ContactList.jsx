@@ -57,13 +57,14 @@ export const ContactList = () => {
               <div className="change-btns">
                 <div>
                   <Link to={`edit-contact/${id}`}>
-                    <button>Edit</button>
+                    <button className="btn">Edit</button>
                   </Link>
                 </div>
                 <div>
                   <button
                     onClick={() => contactDeleteHandler(id, index)}
                     disabled={deleteStatus[index]}
+                    className="btn"
                   >
                     {deleteStatus[index] ? "Deleting..." : "Delete"}
                   </button>

@@ -6,7 +6,7 @@ export const Home = () => {
       <div className="title">
         <h1>Contact List</h1>
         <Link to="/new-contact">
-          <button>Add</button>
+          <button className="btn">Add</button>
         </Link>
       </div>
       <ContactList />
