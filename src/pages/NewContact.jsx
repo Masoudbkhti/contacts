@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 const CONTACTS_LIST_API = "http://localhost:3000/contacts";
 
 export const NewContact = () => {
@@ -39,6 +39,9 @@ export const NewContact = () => {
           onChange={(e) => setNumber(e.target.value)}
         />
         <button type="submit">Add</button>
+        <Link to="/">
+          <button>Back to Home</button>
+        </Link>
       </form>
     </div>
   );

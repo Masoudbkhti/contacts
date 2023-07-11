@@ -3,3 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  padding: 50px;
+}
+.contact-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

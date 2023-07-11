@@ -24,9 +24,15 @@ export const ContactList = () => {
       {isLoading ? <div>Loading...</div> : null}
       {contactList.map(({ id, name, number }) => {
         return (
-          <div key={id}>
-            <h3>{name}</h3>
-            <p>{number}</p>
+          <div className="contact-list">
+            <div key={id}>
+              <h3>{name}</h3>
+              <p>{number}</p>
+            </div>
+            <div>
+              <button>Edit</button>
+              <button>Delete</button>
+            </div>
           </div>
         );
       })}
