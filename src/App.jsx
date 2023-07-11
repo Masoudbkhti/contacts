@@ -5,7 +5,7 @@ import { EditContact } from "../src/pages/EditContact";
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new-contact" element={<NewContact />} />

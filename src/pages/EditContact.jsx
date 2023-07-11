@@ -28,7 +28,7 @@ export const EditContact = () => {
       <div className="title">
         <h1>Edit Contact</h1>
         <Link to="/">
-          <button>Back to Home</button>
+          <button className="btn">Back to Home</button>
         </Link>
       </div>
       <form onSubmit={editFormHandler} className="addform">

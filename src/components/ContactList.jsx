@@ -50,9 +50,10 @@ export const ContactList = () => {
         contactList.map(({ id, name, number }, index) => {
           return (
             <div key={id} className="contact-list">
-              <div>
-                <h3>{name}</h3>
-                <p>{number}</p>
+              <div className="contact-list__title">
+                <h3>Name: {name}</h3>
+
+                <h3>Number: {number}</h3>
               </div>
               <div className="change-btns">
                 <div>
@@ -64,7 +65,7 @@ export const ContactList = () => {
                   <button
                     onClick={() => contactDeleteHandler(id, index)}
                     disabled={deleteStatus[index]}
-                    className="btn"
+                    className="btn-del"
                   >
                     {deleteStatus[index] ? "Deleting..." : "Delete"}
                   </button>

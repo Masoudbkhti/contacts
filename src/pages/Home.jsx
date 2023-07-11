@@ -9,7 +9,9 @@ export const Home = () => {
           <button className="btn">Add</button>
         </Link>
       </div>
-      <ContactList />
+      <div className="contactlist">
+        <ContactList />
+      </div>
     </div>
   );
 };
