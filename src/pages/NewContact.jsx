@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 const CONTACTS_LIST_API = "http://localhost:3000/contacts";
@@ -6,6 +6,7 @@ const CONTACTS_LIST_API = "http://localhost:3000/contacts";
 export const NewContact = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const inputRef = useRef(null);
 
   const addContactHandler = async () => {
     try {
@@ -21,6 +22,7 @@ export const NewContact = () => {
     addContactHandler();
     setName("");
     setNumber("");
+    inputRef.current.focus();
   };
 
   return (
@@ -37,12 +39,15 @@ export const NewContact = () => {
           placeholder="Enter your Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="input"
+          ref={inputRef}
         />
         <input
           type="text"
           placeholder="Enter your Number"
           value={number}
           onChange={(e) => setNumber(e.target.value)}
+          className="input"
         />
         <button className="btn" type="submit">
           Add

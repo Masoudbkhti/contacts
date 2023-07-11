@@ -37,12 +37,14 @@ export const EditContact = () => {
           placeholder="Edit your Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="input"
         />
         <input
           type="text"
           placeholder="Edit your Number"
           value={number}
           onChange={(e) => setNumber(e.target.value)}
+          className="input"
         />
         <button className="btn" type="submit">
           Edit
