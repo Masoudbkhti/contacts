@@ -88,7 +88,7 @@ export const EditContact = () => {
       {isLoading ? (
         <div>Redirecting to Contact List. Please wait...</div>
       ) : null}
-      {error && <p className="error">{error}</p>}
+      {status.error && <p className="error">{status.error}</p>}
     </div>
   );
 };
