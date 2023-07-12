@@ -7,6 +7,7 @@ export const NewContact = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const inputRef = useRef(null);
+  const [error, setError] = useState();
 
   const addContactHandler = async () => {
     try {
@@ -19,6 +20,12 @@ export const NewContact = () => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
+    if (!/^09\d{9}$/.test(number)) {
+      setError("Phone number starts with 09 and must be 11 characters.");
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
     addContactHandler();
     setName("");
     setNumber("");
@@ -53,6 +60,7 @@ export const NewContact = () => {
           Add
         </button>
       </form>
+      {error && <p className="error">{error}</p>}
     </div>
   );
 };

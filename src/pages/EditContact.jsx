@@ -29,10 +29,10 @@ export const EditContact = () => {
   const editFormHandler = async (e) => {
     e.preventDefault();
     if (!/^09\d{9}$/.test(number)) {
+      setError("Phone number starts with 09 and must be 11 characters.");
       setTimeout(() => {
         setError("");
-      }, 3000);
-      setError("Phone number starts with 09 and must be 11 characters.");
+      }, 5000);
       return;
     }
     const requestBody = { name, number };
