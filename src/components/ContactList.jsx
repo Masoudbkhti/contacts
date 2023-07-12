@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const CONTACTS_LIST_API = "http://localhost:3000/contacts";
 
 export const ContactList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [contactList, setContactList] = useState([]);
   const [deleteStatus, setDeleteStatus] = useState([]);
+  const toContact = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,19 +42,21 @@ export const ContactList = () => {
     }
   };
 
+  const goToContactHandler = (id) => {
+    toContact(`/contact/${id}`);
+  };
+
   return (
     <div>
       {isLoading ? <div>Loading...</div> : null}
       {contactList.length === 0 && !isLoading ? (
         <div>There is no Contacts in the list!</div>
       ) : (
-        contactList.map(({ id, name, number }, index) => {
+        contactList.map(({ id, name }, index) => {
           return (
             <div key={id} className="contact-list">
               <div className="contact-list__title">
-                <h3>Name: {name}</h3>
-
-                <h3>Number: {number}</h3>
+                <h3 onClick={() => goToContactHandler(id)}>{name}</h3>
               </div>
               <div className="change-btns">
                 <div>

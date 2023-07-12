@@ -1,5 +1,5 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const CONTACTS_LIST_API = "http://localhost:3000/contacts";
 import axios from "axios";
@@ -10,7 +10,10 @@ export const EditContact = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigateTo = useNavigate();
   const [status, setStatus] = useState({ error: "", success: "" });
+  const inputRef = useRef();
+
   useEffect(() => {
+    inputRef.current.focus();
     const fetchData = async () => {
       try {
         isLoading(true);
@@ -73,6 +76,7 @@ export const EditContact = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="input"
+          ref={inputRef}
         />
         <input
           type="text"

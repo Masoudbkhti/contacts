@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 const CONTACTS_LIST_API = "http://localhost:3000/contacts";
@@ -8,7 +8,9 @@ export const NewContact = () => {
   const [number, setNumber] = useState("");
   const inputRef = useRef(null);
   const [status, setStatus] = useState({ success: "", error: "" });
-
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
   const addContactHandler = async () => {
     try {
       await axios.post(CONTACTS_LIST_API, { name, number });
