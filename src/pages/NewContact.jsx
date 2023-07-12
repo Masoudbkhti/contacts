@@ -28,6 +28,14 @@ export const NewContact = () => {
       setTimeout(() => {
         setStatus({ error: "" });
       }, 5000);
+    } else if (name.trim() === "") {
+      setStatus({
+        error: "Name field cannot be empty.",
+        success: "",
+      });
+      setTimeout(() => {
+        setStatus({ error: "" });
+      }, 5000);
     } else {
       addContactHandler();
       setName("");
