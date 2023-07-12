@@ -9,7 +9,7 @@ export const EditContact = () => {
   const [number, setNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigateTo = useNavigate();
-  const [error, setError] = useState("");
+  const [status, setStatus] = useState({ error: "", success: "" });
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,21 +29,33 @@ export const EditContact = () => {
   const editFormHandler = async (e) => {
     e.preventDefault();
     if (!/^09\d{9}$/.test(number)) {
-      setError("Phone number starts with 09 and must be 11 characters.");
+      setStatus({
+        error: "Phone number starts with 09 and must be 11 characters.",
+        success: "",
+      });
       setTimeout(() => {
         setError("");
       }, 5000);
       return;
-    }
-    const requestBody = { name, number };
-    try {
-      setIsLoading(true);
-      await axios.put(`${CONTACTS_LIST_API}/${id}`, requestBody);
-      setIsLoading(false);
-      navigateTo("/");
-    } catch (e) {
-      setIsLoading(false);
-      console.log("Error:", e);
+    } else if (name.trim() == "") {
+      setStatus({
+        error: "Name field cannot be empty.",
+        success: "",
+      });
+      setTimeout(() => {
+        setStatus({ error: "" });
+      }, 5000);
+    } else {
+      const requestBody = { name, number };
+      try {
+        setIsLoading(true);
+        await axios.put(`${CONTACTS_LIST_API}/${id}`, requestBody);
+        setIsLoading(false);
+        navigateTo("/");
+      } catch (e) {
+        setIsLoading(false);
+        console.log("Error:", e);
+      }
     }
   };
   return (
