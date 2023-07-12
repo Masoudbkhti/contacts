@@ -7,7 +7,7 @@ export const NewContact = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const inputRef = useRef(null);
-  const [error, setError] = useState();
+  const [status, setStatus] = useState({ success: "", error: "" });
 
   const addContactHandler = async () => {
     try {
@@ -21,15 +21,23 @@ export const NewContact = () => {
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (!/^09\d{9}$/.test(number)) {
-      setError("Phone number starts with 09 and must be 11 characters.");
+      setStatus({
+        error: "Phone number starts with 09 and must be 11 characters.",
+        success: "",
+      });
       setTimeout(() => {
-        setError("");
+        setStatus({ error: "" });
       }, 5000);
+    } else {
+      addContactHandler();
+      setName("");
+      setNumber("");
+      setStatus({ error: "", success: "Contact added successfully." });
+      setTimeout(() => {
+        setStatus({ success: "" });
+      }, 5000);
+      inputRef.current.focus();
     }
-    addContactHandler();
-    setName("");
-    setNumber("");
-    inputRef.current.focus();
   };
 
   return (
@@ -60,7 +68,9 @@ export const NewContact = () => {
           Add
         </button>
       </form>
-      {error && <p className="error">{error}</p>}
+      {status.success && <p className="success">{status.success}</p>}
+
+      {status.error && <p className="error">{status.error}</p>}
     </div>
   );
 };
