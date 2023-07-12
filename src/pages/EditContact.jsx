@@ -16,14 +16,14 @@ export const EditContact = () => {
     inputRef.current.focus();
     const fetchData = async () => {
       try {
-        isLoading(true);
+        setIsLoading(true);
         const response = await axios.get(`${CONTACTS_LIST_API}/${id}`);
-        isLoading(false);
+        setIsLoading(false);
         const { name, number } = response.data;
         setName(name);
         setNumber(number);
       } catch (e) {
-        isLoading(false);
+        setIsLoading(false);
         console.log("Error:", e);
       }
     };
@@ -74,6 +74,7 @@ export const EditContact = () => {
           type="text"
           placeholder="Edit your Name"
           value={name}
+          defaultValue={name}
           onChange={(e) => setName(e.target.value)}
           className="input"
           ref={inputRef}
@@ -82,6 +83,7 @@ export const EditContact = () => {
           type="text"
           placeholder="Edit your Number"
           value={number}
+          defaultValue={number}
           onChange={(e) => setNumber(e.target.value)}
           className="input"
         />
