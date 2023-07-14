@@ -8,6 +8,8 @@ export const EditContact = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [inputLoading, setInputLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const navigateTo = useNavigate();
   const [status, setStatus] = useState({ error: "", success: "" });
   const inputRef = useRef();
@@ -16,14 +18,20 @@ export const EditContact = () => {
     inputRef.current.focus();
     const fetchData = async () => {
       try {
-        setIsLoading(true);
+        setInputLoading(true);
         const response = await axios.get(`${CONTACTS_LIST_API}/${id}`);
-        setIsLoading(false);
+
+        setInputLoading(false);
         const { name, number } = response.data;
         setName(name);
         setNumber(number);
       } catch (e) {
-        setIsLoading(false);
+        setInputLoading(false);
+
+        setStatus({
+          error: "Data could not be loaded. Please try leter.",
+          success: "",
+        });
         console.log("Error:", e);
       }
     };
@@ -54,9 +62,15 @@ export const EditContact = () => {
         setIsLoading(true);
         await axios.put(`${CONTACTS_LIST_API}/${id}`, requestBody);
         setIsLoading(false);
+        setIsRedirecting(true);
         navigateTo("/");
       } catch (e) {
         setIsLoading(false);
+        setIsRedirecting(false);
+        setStatus({
+          error: "There is a problem. Please try leter.",
+          success: "",
+        });
         console.log("Error:", e);
       }
     }
@@ -72,7 +86,7 @@ export const EditContact = () => {
       <form onSubmit={editFormHandler} className="addform">
         <input
           type="text"
-          placeholder="Edit your Name"
+          placeholder={inputLoading ? "Loading..." : "request faild!"}
           value={name}
           defaultValue={name}
           onChange={(e) => setName(e.target.value)}
@@ -81,17 +95,17 @@ export const EditContact = () => {
         />
         <input
           type="text"
-          placeholder="Edit your Number"
+          placeholder={inputLoading ? "Loading..." : "request faild!"}
           value={number}
           defaultValue={number}
           onChange={(e) => setNumber(e.target.value)}
           className="input"
         />
         <button className="btn" type="submit">
-          Edit
+          {isLoading ? "Editing..." : "Edit"}
         </button>
       </form>
-      {isLoading ? (
+      {isRedirecting ? (
         <div>Redirecting to Contact List. Please wait...</div>
       ) : null}
       {status.error && <p className="error">{status.error}</p>}

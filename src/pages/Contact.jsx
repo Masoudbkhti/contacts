@@ -7,6 +7,7 @@ export const Contact = () => {
   const [contactDetail, setContactDetail] = useState({});
   const { name, number } = contactDetail;
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +19,7 @@ export const Contact = () => {
         setContactDetail(response.data);
       } catch (e) {
         setIsLoading(false);
+        setError("Data could not be loaded. Please try leter.");
 
         console.log("Error:", e);
       }
@@ -27,6 +29,7 @@ export const Contact = () => {
   return (
     <div className="container">
       {isLoading ? <div>Loading...</div> : null}
+      {error && <div className="error">{error}</div>}
       <h1 className="title">Contact {id}</h1>
       <h2>Name: {name}</h2>
       <h2>Number: {number}</h2>

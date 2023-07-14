@@ -8,14 +8,23 @@ export const NewContact = () => {
   const [number, setNumber] = useState("");
   const inputRef = useRef(null);
   const [status, setStatus] = useState({ success: "", error: "" });
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     inputRef.current.focus();
   }, []);
   const addContactHandler = async () => {
     try {
+      setIsLoading(true);
       await axios.post(CONTACTS_LIST_API, { name, number });
+      setIsLoading(false);
       console.log("Contact added successfully!");
+      setStatus({ error: "", success: "Contact added successfully." });
     } catch (error) {
+      setIsLoading(false);
+      setStatus({
+        error: "There is a problem. Please try leter",
+        success: "",
+      });
       console.log("Error adding contact:", error);
     }
   };
@@ -42,9 +51,8 @@ export const NewContact = () => {
       addContactHandler();
       setName("");
       setNumber("");
-      setStatus({ error: "", success: "Contact added successfully." });
       setTimeout(() => {
-        setStatus({ success: "" });
+        setStatus({ success: "", error: "" });
       }, 5000);
       inputRef.current.focus();
     }
@@ -75,7 +83,7 @@ export const NewContact = () => {
           className="input"
         />
         <button className="btn" type="submit">
-          Add
+          {isLoading ? "Adding..." : "Add"}
         </button>
       </form>
       {status.success && <p className="success">{status.success}</p>}
